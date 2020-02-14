@@ -1,6 +1,92 @@
-echo "# python" >> README.md
-git init
-git add README.md
-git commit -m "first commit"
-git remote add origin https://github.com/Amber-S/python.git
-git push -u origin master
+import tkinter as tk
+
+window = tk.Tk()
+window.title('GPA App')
+window.geometry('500x300')
+window.configure(background='white')
+
+def calculate_gpa_number():
+    Score1 = float(Score_entry1.get())
+    credit1 = float(credit_entry1.get())
+    Score2 = float(Score_entry2.get())
+    credit2 = float(credit_entry2.get())
+    Score3 = float(Score_entry3.get())
+    credit3 = float(credit_entry3.get())
+    Score4 = float(Score_entry4.get())
+    credit4 = float(credit_entry4.get())
+    Score5 = float(Score_entry5.get())
+    credit5 = float(credit_entry5.get())
+    score = [Score1, Score2, Score3, Score4, Score5]
+    credit = [credit1, credit2, credit3, credit4, credit5]
+    gpascore=[]
+    for x in score:
+      if x >= 90:
+          gpascore.append(4)
+      elif x >= 80 and x < 89:
+          gpascore.append(3)
+      elif x >= 70 and x < 79:
+          gpascore.append(2)
+      elif x >= 60 and x < 69:
+          gpascore.append(1)
+      elif x <= 59 :
+          gpascore.append(0)
+    func = lambda x,y:x*y
+    result = map(func,gpascore,credit)
+    list_gpa = list(result)
+    gpa_value = round((sum(list_gpa))/sum(credit), 2)
+    result = 'Your GPA score is {}'.format(gpa_value)
+    result_label.configure(text=result)
+
+#標題
+header_label = tk.Label(window, text='Calculat GPA')
+header_label.pack()
+warning_label = tk.Label(window)
+warning_label.configure(fg = 'red', text = 'Please enter 0 in score and credit if you don\'t use it. ', font = 20)
+warning_label.pack()
+
+frm = tk.Frame(window)
+frm.pack()
+
+
+#成績
+Score_frame = tk.Frame(frm)
+Score_frame.pack(side=tk.LEFT)
+Score_label = tk.Label(Score_frame, text='Score')
+Score_label.pack(side=tk.TOP)
+Score_label1 = tk.Label(Score_frame, text='Course1 Course2 Course3 Course4 Course5', font=('Arial', 13) , wraplength = 105)
+Score_label1.pack(side=tk.LEFT)
+
+Score_entry1 = tk.Entry(Score_frame)
+Score_entry1.pack(side=tk.TOP)
+Score_entry2 = tk.Entry(Score_frame)
+Score_entry2.pack(side=tk.TOP)
+Score_entry3 = tk.Entry(Score_frame)
+Score_entry3.pack(side=tk.TOP)
+Score_entry4 = tk.Entry(Score_frame)
+Score_entry4.pack(side=tk.TOP)
+Score_entry5 = tk.Entry(Score_frame)
+Score_entry5.pack(side=tk.TOP)
+
+#學分
+credit_frame = tk.Frame(frm)
+credit_frame.pack(side=tk.RIGHT)
+credit_label = tk.Label(credit_frame, text='credit')
+credit_label.pack(side=tk.TOP)
+credit_entry1 = tk.Entry(credit_frame)
+credit_entry1.pack(side=tk.TOP)
+credit_entry2 = tk.Entry(credit_frame)
+credit_entry2.pack(side=tk.TOP)
+credit_entry3 = tk.Entry(credit_frame)
+credit_entry3.pack(side=tk.TOP)
+credit_entry4 = tk.Entry(credit_frame)
+credit_entry4.pack(side=tk.TOP)
+credit_entry5 = tk.Entry(credit_frame)
+credit_entry5.pack(side=tk.TOP)
+
+result_label = tk.Label(window)
+result_label.pack()
+
+calculate_btn = tk.Button(window, text='Calculate', command=calculate_gpa_number)
+calculate_btn.pack()
+
+window.mainloop()
